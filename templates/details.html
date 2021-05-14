@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html> 
+<head> 
+    <style>
+        body{
+            background-color: green ;
+        }
+        table,th,tr,td{ 
+        background-color: white;
+        }
+        h1{
+            background-color: LightGray;
+        }
+        label{
+            background-color: white;
+        }
+        td,tr,th{
+    border: solid 2px black;
+           }
+        
+        .button { 
+      border: none;
+      color: white; 
+      width: 100px;
+      padding: 10px 16px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      cursor: pointer; 
+      margin:4px 2px;
+               }
+        .button1 {background-color: red;}
+    </style>
+</head>
+<body>
+    <center>
+    <h1><strong>WORKER AND LOCATION DETAILS</strong></h1>
+    <table style="border: 5px solid #990000; border-collapse: collapse">
+        <tr>
+            <th>ID</th>
+            <th>NAME</th>
+            <th>EMAIL</th>
+            <th>ADDRESS</th>
+            <th>PHONE_NUMBER</th>
+            <th>PINCODE</th>
+            <th>WORK</th> 
+        </tr>
+        {% for item in alldata %}
+        <tr> 
+            <td>{{item.id}}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.email }}</td>
+            <td>{{ item.address}}</td> 
+            <td><a href="tel:{{ item.phone_number }}">{{item.phone_number}}</a></td>
+            <td>{{ item.pincode}}</td>
+            <td>{{ item.work}}</td> 
+        </tr>
+        {% endfor %}  
+    </table> 
+</center>
+<form action="direction" method="POST">
+    {% csrf_token %}  
+    <center>
+    <br><br>
+    <label>Enter the id to show the location:</label>
+    <input type="text" name="identifier">  <br><br>
+    <button class="button button1"name="direction">SUBMIT</button>
+    </center> 
+</form>
+</body>
+</html>

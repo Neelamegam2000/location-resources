@@ -1,0 +1,58 @@
+<html> 
+<head>
+	<style>
+    body
+    {
+      background-color: green;
+    }
+    h1{
+      background-color: LightGray;
+    }
+    .container
+    { border: 5px solid #990000;
+      margin-top: 50%;
+      margin-bottom:50%;
+      width: 300px;
+      margin: auto;
+      background-color: white;
+      height:200px;
+    }
+    .label
+    {
+      color: #B4886B;
+      font-weight: bold; 
+      display: block; 
+      width: 150px;
+    }
+    .button { 
+      border: none;
+      color: white; 
+      width: 100px;
+      padding: 10px 16px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      cursor: pointer; 
+      margin:4px 2px;
+}
+
+  .button1 {background-color: red;}
+	</style>
+</head>
+<body> 
+	<center>
+    <h1><strong>Search</strong></h1>
+		<form class='container' action="" method="POST"> 
+			{% csrf_token %} 
+        <br><br>
+        <center>
+     		<label for='work'>WORK:</label><input type="text" name="work"><br><br>
+     		<label for='pincode'>PINCODE:</label></h2><input type="number" name="pincode"><br><br>
+     		<button type='submit' class="button button1" name='submit'>SUBMIT</button>
+      </center>
+     </form>
+    </div>
+  </center>
+</body>
+</html>

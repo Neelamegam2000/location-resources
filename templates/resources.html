@@ -1,0 +1,71 @@
+{% load mapbox_location_field_tags %} 
+{% location_field_includes %}
+{% include_jquery %}  
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title> 
+	<script>
+ 	var lngLatWithFilter = {{object.location | tuple_to_array }};
+ 	var lngLatWithTag = {% tuple_to_array object.location %};
+ 
+ // These are just two ways, which give the same result
+ // Now you can use one of this variables as an array
+ </script>
+ <style>
+ 	body{
+ 		background-color: green ;
+ 	}
+ 	h1{
+ 		background-color: #f1f1f1;
+ 	}
+    table{
+    	border:2px;
+    	border-color: black;
+    	background-color: white;
+    	width:600px;
+    	height:600px;
+
+    }
+    td,tr,th{
+    border: solid 2px black;
+           }
+    .button { 
+  		border: none;
+  		color: white; 
+  		width: 100px;
+  		padding: 10px 16px;
+  		text-align: center;
+  		text-decoration: none;
+  		display: inline-block;
+  		font-size: 16px;
+  		cursor: pointer; 
+  		margin:4px 2px;
+}
+
+	.button1 {background-color: red;}  
+ </style>
+</head>
+<body> 
+<center> 
+<h1><B>REGISTER YOUR WORK</B></h1>
+<form method="post">
+{% csrf_token %}
+<table style="border: 5px solid #990000; border-collapse: collapse">
+   {{form}}
+ </table>
+   <script>
+		mapboxgl.accessToken="pk.eyJ1IjoibmVlbGFtZWdhbXYiLCJhIjoiY2tvZm9xdHZ1MGt1aDJ3bnF1bDNheHNyYyJ9.wJ52m5_8er_5BExd6nZqzQ";
+		map.addControl(new mapboxgl.GeolocateControl({
+		positionOptions: {
+		enableHighAccuracy: true
+		},
+		trackUserLocation: true
+		}));
+	</script>
+   <button type="submit" class="button button1">Submit</button>
+</form>  
+{{ form.media }} 
+</center>
+</body>
+</html>
