@@ -22,8 +22,18 @@ from django.conf.urls.static import static
 from resources import views
 
 urlpatterns = [ 
-	url(r'^$', views.home, name='home'),
+	url(r'^$', views.login1, name='login1'),
+    url(r'^editdetails',views.editdetails,name="editdetails"),
+    url(r'^home',views.home,name="home"),
 	url(r'^user/$',views.user,name='user'),
+    url(r'^user/details',views.details,name='details'),
 	url(r'^user/direction',views.direction,name='direction'),
+    url(r'^user/review',views.review,name="review"),
+    url(r'^forgetpass',views.forgetpass,name="forget_pass"),
+    url(r'^status',views.resourcestatus,name="status"),
 	url(r'^admin/', admin.site.urls),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

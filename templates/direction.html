@@ -7,22 +7,111 @@
 <link href="https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css" rel="stylesheet">
 <script src="https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js"></script>
 <style>
-body { margin: 0; padding: 0; }
-#map { position: absolute; top: 0; bottom: 0; width: 100%; }
+	@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+
+			* {
+				box-sizing: border-box;}
+body { 
+		background-color:  #f6f5f7;
+  		font-family: 'Asap', sans-serif;
+  		margin: 0; 
+  		padding: 0; }
+    .container {
+				background-color: #fff;
+				border-radius: 10px;
+  				box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
+			0 10px 10px rgba(0,0,0,0.22);
+				position: relative;
+				margin-top: 30px;
+				left:20%;
+				width: 768px;
+				max-width: 100%;
+				min-height: 480px;
+					}
+			.form-container {
+				position: absolute;
+				top: 0;
+				height: 100%;
+				transition: all 0.6s ease-in-out;
+					}
+			.map{
+				left: 0;
+				width: 70%;
+				z-index: 1;
+					}
+
+			
+            .review {
+            	background-color: #FF416C;
+				left: 70%;
+				width: 30%;
+				z-index: 2;
+				}
+    h1 {
+    	font-style: bold;
+        margin: 0;
+        background-color: black ;
+        color: white;
+        text-align: center;
+        font-size: 40px: 
+} 
+p {
+    	top:0;
+  		background-color: #666;
+  		text-align: center;
+  		font-size: 20px;
+  		color: white;
+}
+button {
+				border-radius: 20px;
+				border: 1px solid #FF4B2B;
+				background-color: green;
+				color: #FFFFFF;
+				font-size: 12px;
+				font-weight: bold;
+				top:80%;
+				padding: 12px 45px;
+				letter-spacing: 1px;
+				text-transform: uppercase;
+				transition: transform 80ms ease-in;
+					}
+
+	button:active {
+				transform: scale(0.95);
+						}
+	textarea {
+				background-color: #eee;
+				padding: 12px 15px;
+				margin-left: 20px;
+				width: 80%;
+				height: 100%;
+
+
+				}
+	h2{ margin: 0;
+  	background-color: black;
+  	text-align: center;
+  	font-style: bold;
+  	font-size: 20px;
+  	color: white;
+}
+
 </style>
 </head>
 <body>
+	<h1>DIRECTION</h1>
+<div class="container">
 <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.js"></script>
 <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.css" type="text/css">
-<div id="map"></div>
- 
+<div class="form-container map" id="map">
 <script>
 	mapboxgl.accessToken = "pk.eyJ1IjoibmVlbGFtZWdhbXYiLCJhIjoiY2tvZm9xdHZ1MGt1aDJ3bnF1bDNheHNyYyJ9.wJ52m5_8er_5BExd6nZqzQ";
 var map = new mapboxgl.Map({
 container: 'map',
 style: 'mapbox://styles/mapbox/streets-v11',
 center: [-79.4512, 43.6568],
-zoom: 20
+zoom: 20,
+rotate:true,
 }); 
 map.addControl(new mapboxgl.GeolocateControl({
 		positionOptions: {
@@ -31,6 +120,7 @@ map.addControl(new mapboxgl.GeolocateControl({
 		trackUserLocation: true
 		})); 
 map.addControl(new mapboxgl.NavigationControl());
+map.addControl(new mapboxgl.FullscreenControl());
 
 var directions=new MapboxDirections({
 	accessToken:mapboxgl.accessToken
@@ -44,6 +134,16 @@ accessToken: mapboxgl.accessToken
 map.on('load',function(){
 	directions.setDestination([{{lat}},{{lon}}])
 } )
-</script> 
+</script>
+</div>
+<div class="form-container review" id="review">
+<form action="review" method="POST">
+		{% csrf_token %}
+	<h2>Review</h2><br>
+	<textarea placeholder=" Text your comments" name="comments"></textarea><br><br><br>
+	<center><button name="submitted_comment">SUBMIT</button></center>
+</form>
+</div>
+</div>
 </body>
 </html>

@@ -1,43 +1,87 @@
+{% load resources_tags %}
 <!DOCTYPE html>
 <html> 
 <head> 
     <style>
-        body{
-            background-color: green ;
+        @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+
+      * {
+        box-sizing: border-box;
         }
-        table,th,tr,td{ 
+      body {
+        width:auto;
+        background: #FF416C;;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        font-family: 'Alas', sans-serif;
+        height: 100%;
+        margin:  0 50px;
+        }
+
+      h1 {
+        font-weight: bold;
+        margin: 0;
+        background-color: black ;
+        color: white;
+        text-align: center;
+        }
+    button {
+        border-radius: 20px;
+        border: 1px solid #FF4B2B;
+        background-color: green;
+        color: #FFFFFF;
+        font-size: 12px;
+        font-weight: bold;
+        padding: 12px 45px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        transition: transform 80ms ease-in;
+          }
+
+      button:active {
+        transform: scale(0.95);
+            }
+      input {
+        background-color: #eee;
+        padding: 12px 15px;
+        margin: 8px 0;
+        width: 80%;
+    }
+    .container {
         background-color: white;
-        }
-        h1{
-            background-color: LightGray;
-        }
-        label{
-            background-color: white;
-        }
-        td,tr,th{
-    border: solid 2px black;
-           }
-        
-        .button { 
-      border: none;
-      color: white; 
-      width: 100px;
-      padding: 10px 16px;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 16px;
-      cursor: pointer; 
-      margin:4px 2px;
-               }
-        .button1 {background-color: red;}
+        border-radius: 10px;
+        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
+      0 10px 10px rgba(0,0,0,0.22);
+        width: auto;
+        position: absolute center;
+
+          }
+    th{
+      border:3px solid black;
+      padding: 10px;
+      margin: 10px;
+   }
+   tr{
+    border: 2px solid black;
+    padding: 10px;
+  margin: 10px;
+   }
+   td{
+    border: 2px solid black;
+    padding:5px;
+    margin:5px;
+   }
+
     </style>
 </head>
 <body>
-    <center>
+    <div class="container">
     <h1><strong>WORKER AND LOCATION DETAILS</strong></h1>
-    <table style="border: 5px solid #990000; border-collapse: collapse">
+    <table style="border : 5px solid black;border-collapse: collapse">
         <tr>
+          <th>PROFILE_PICTURE</th>
             <th>ID</th>
             <th>NAME</th>
             <th>EMAIL</th>
@@ -45,27 +89,46 @@
             <th>PHONE_NUMBER</th>
             <th>PINCODE</th>
             <th>WORK</th> 
+            <th>REVIEW</th>
+            <th>STATUS</th>
         </tr>
         {% for item in alldata %}
         <tr> 
-            <td>{{item.id}}</td>
+          <td><center><img src="/media/{{item.profile_picture}}" height="100" width="100"></center></td>
+            <td ><a href="direction?reg_id={{ item.id|urlencode }}" name={{item.id}}>{{item.id}}</a>
+            </form></td>
             <td>{{ item.name }}</td>
             <td>{{ item.email }}</td>
             <td>{{ item.address}}</td> 
             <td><a href="tel:{{ item.phone_number }}">{{item.phone_number}}</a></td>
             <td>{{ item.pincode}}</td>
             <td>{{ item.work}}</td> 
+            {% with item.review|split:',' as reviews %}
+                <td>{% for review in reviews|slice:":-3:-1" %}
+                    {% ifnotequal review "" %}
+                    <li>{{ review }}</li>
+                    {% endifnotequal %}
+                {% endfor %}</td>
+                {% endwith %}
+                <td>
+                  {% for status in existingstatus %}
+                    {% ifequal status.resources_id item %}
+                      <center>{{status.status}}</center>
+                     {% endifequal %}
+                  {% endfor %}  
+                </td>       
+        {% endfor %}
+  
         </tr>
-        {% endfor %}  
     </table> 
-</center>
-<form action="direction" method="POST">
+</div>
+<form action="direction" method="GET" enctype="multipart/form-data">
     {% csrf_token %}  
     <center>
     <br><br>
     <label>Enter the id to show the location:</label>
-    <input type="text" name="identifier">  <br><br>
-    <button class="button button1"name="direction">SUBMIT</button>
+    <input type="text" name="id">  <br><br>
+    <button class="button button1" name="direction">SUBMIT</button>
     </center> 
 </form>
 </body>

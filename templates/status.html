@@ -1,0 +1,112 @@
+{% load mapbox_location_field_tags %} 
+{% location_field_includes %}
+{% include_jquery %}  
+{% load widget_tweaks %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title> 
+ <style>
+ 	* {
+	box-sizing: border-box;
+    }
+ 	body{
+ 		background-color: rgba(244, 91, 105, 1);
+  		font-family: 'Asap', sans-serif;
+  		left:0;
+  		right:0;
+ 	}
+ 	h1{
+ 		background-color: #f1f1f1;
+ 	}
+    table{
+    	border:2px;
+    	border-color: black;
+    	background-color: white;
+    	border-collapse: collapse;
+    	width:600px;
+    	height:600px;
+
+    }
+    td,tr,th{
+    	border: solid 2px  blue ;
+    	border-collapse: collapse;
+           }
+    header {
+  		background-color: #666;
+  		padding: 5px;
+  		text-align: center;
+  		font-size: 20px;
+  		color: white;
+}
+    .container{
+    	overflow: hidden;
+  		background-color: white;
+  		padding: 40px 30px 30px 30px;
+  		border-radius: 10px;
+  		box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
+			0 10px 10px rgba(0,0,0,0.22);
+  		position: absolute;
+  		top:30%;
+  		left: 25%;
+  		width: 600px;
+
+    }
+    .label1{
+		text-align: left;
+
+    }
+    .form-control{
+    	font-family: 'Asap';
+    	display: block;
+    	border-radius: 5px;
+    	font-size: 16px;
+    	background: #eee;
+    	width: 100%;
+    	border: 10;
+    	padding: 10px 10px;
+    	margin: 15px -10px;
+    }
+
+    button {
+        border-radius: 20px;
+        border: 1px solid #FF4B2B;
+        background-color: #FF4B2B;
+        color: #FFFFFF;
+        font-size: 12px;
+        font-weight: bold;
+        padding: 12px 45px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        transition: transform 80ms ease-in;
+          }
+
+      button:active {
+        transform: scale(0.95);
+            } 
+</style>
+</head>
+<header><h2>STATUS</h2></header>
+<body> 
+<center> 
+<form class="container" method="POST" enctype="multipart/form-data">
+
+{% csrf_token %}
+	{% for hidden_field in form.hidden_fields %}
+    {{ hidden_field }}
+  {% endfor %}
+  {% for field in form.visible_fields %}
+      <div class="label1">
+        {{ field.label_tag }}
+      {% render_field field class="form-control" %}<br>
+      {% if field.help_text %}
+        <small class="form-text text-muted">{{ field.help_text }}</small>
+      {% endif %}
+      </div>
+  {% endfor %}
+   <a href="<button type="submit" name="submit1">Submit</button>
+</form>  
+</center>
+</body>
+</html>

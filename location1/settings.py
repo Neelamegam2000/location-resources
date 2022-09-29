@@ -16,7 +16,6 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
@@ -25,6 +24,7 @@ SECRET_KEY = 'django-insecure-u6y#l%4o*s4av@%uou+&c^9hpxnpe!k!hq6f)f_hw7@tr@1*0n
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+APPEND_SLASH=False
 
 ALLOWED_HOSTS = [] 
 #GDAL_LIBRARY_PATH = r'C:\Users\vneel\Envs\myproject\Lib\site-packages\osgeo\gdal1302.dll'
@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'mapbox_location_field',
+    'widget_tweaks',
     'resources',
+
 ]
 
 MIDDLEWARE = [
@@ -116,6 +118,8 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 # Static files (CSS, JavaScript, Images)
@@ -127,3 +131,9 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
